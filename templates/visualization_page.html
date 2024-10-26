@@ -1,0 +1,129 @@
+<!-- Create a new file: templates/visualization_page.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Data Visualization Dashboard</h1>
+    
+    <div class="card visualization-controls mb-4">
+        <div class="card-body">
+            <form method="POST" class="viz-form">
+                <div class="form-group">
+                    <label for="visualization_type">Select Visualization Type:</label>
+                    <select name="visualization_type" id="visualization_type" class="form-control" required>
+                        <option value="line">Line Plot</option>
+                        <option value="bar">Bar Plot</option>
+                        <option value="scatter">Scatter Plot</option>
+                        <option value="histogram">Histogram</option>
+                        <option value="box">Box Plot</option>
+                        <option value="violin">Violin Plot</option>
+                        <option value="heatmap">Correlation Heatmap</option>
+                        <option value="pie">Pie Chart</option>
+                        <option value="density">Density Plot</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic form fields for different plot types -->
+                <div id="plot_options">
+                    <!-- Line, Bar, Scatter Plot Options -->
+                    <div class="form-group xy-fields">
+                        <label for="x_column">X-Axis Column:</label>
+                        <select name="x_column" class="form-control">
+                            {% for column in columns %}
+                            <option value="{{ column }}">{{ column }}</option>
+                            {% endfor %}
+                        </select>
+                        
+                        <label for="y_column">Y-Axis Column:</label>
+                        <select name="y_column" class="form-control">
+                            {% for column in numeric_columns %}
+                            <option value="{{ column }}">{{ column }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Histogram, Density, Pie Chart Options -->
+                    <div class="form-group single-column-fields" style="display: none;">
+                        <label for="column">Select Column:</label>
+                        <select name="column" class="form-control">
+                            {% for column in numeric_columns %}
+                            <option value="{{ column }}">{{ column }}</option>
+                            {% endfor %}
+                        </select>
+                        
+                        <div class="histogram-options" style="display: none;">
+                            <label for="bins">Number of Bins:</label>
+                            <input type="number" name="bins" class="form-control" value="30" min="5" max="100">
+                        </div>
+                    </div>
+
+                    <!-- Box Plot and Heatmap Options -->
+                    <div class="form-group multi-column-fields" style="display: none;">
+                        <label>Select Columns:</label>
+                        <div class="checkbox-group">
+                            {% for column in numeric_columns %}
+                            <div class="form-check">
+                                <input type="checkbox" name="columns" value="{{ column }}" class="form-check-input">
+                                <label class="form-check-label">{{ column }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Generate Visualization</button>
+            </form>
+        </div>
+    </div>
+
+    {% if plot_image %}
+    <div class="card visualization-result">
+        <div class="card-body">
+            <img src="{{ url_for('static', filename='uploads/' + plot_image) }}" 
+                 alt="Visualization" class="img-fluid plot-image">
+            <div class="plot-controls mt-3">
+                <a href="{{ url_for('download_plot', filename=plot_image) }}" 
+                   class="btn btn-secondary">Download Plot</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.getElementById('visualization_type').addEventListener('change', function() {
+    const vizType = this.value;
+    const xyFields = document.querySelector('.xy-fields');
+    const singleColumnFields = document.querySelector('.single-column-fields');
+    const multiColumnFields = document.querySelector('.multi-column-fields');
+    const histogramOptions = document.querySelector('.histogram-options');
+    
+    // Hide all fields first
+    xyFields.style.display = 'none';
+    singleColumnFields.style.display = 'none';
+    multiColumnFields.style.display = 'none';
+    histogramOptions.style.display = 'none';
+    
+    // Show relevant fields based on visualization type
+    switch(vizType) {
+        case 'line':
+        case 'bar':
+        case 'scatter':
+        case 'violin':
+            xyFields.style.display = 'block';
+            break;
+        case 'histogram':
+            singleColumnFields.style.display = 'block';
+            histogramOptions.style.display = 'block';
+            break;
+        case 'pie':
+        case 'density':
+            singleColumnFields.style.display = 'block';
+            break;
+        case 'box':
+        case 'heatmap':
+            multiColumnFields.style.display = 'block';
+            break;
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,186 @@
+/* Microsoft Fluent Design-inspired theme */
+:root {
+    --ms-blue: #0078d4;
+    --ms-light-blue: #50a9e7;
+    --ms-dark-blue: #005a9e;
+    --ms-gray: #605e5c;
+    --ms-light-gray: #f3f2f1;
+    --ms-border: #edebe9;
+    --ms-hover: #f5f5f5;
+    --ms-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --ms-focus-shadow: 0 0 0 2px rgba(0, 120, 212, 0.25);
+}
+
+.operation-card {
+    background: white;
+    border: 1px solid var(--ms-border);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--ms-shadow);
+    transition: all 0.2s ease;
+}
+
+.operation-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.operation-card h3 {
+    color: var(--ms-gray);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ms-border);
+}
+
+.btn {
+    border: none;
+    border-radius: 2px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+.btn-primary {
+    background-color: var(--ms-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--ms-dark-blue);
+}
+
+.btn-primary:active {
+    background-color: var(--ms-light-blue);
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: var(--ms-focus-shadow);
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--ms-gray);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--ms-border);
+    border-radius: 2px;
+    font-size: 14px;
+    color: var(--ms-gray);
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--ms-blue);
+    box-shadow: var(--ms-focus-shadow);
+}
+
+.form-control:hover {
+    border-color: var(--ms-gray);
+}
+
+.mb-2 {
+    margin-bottom: 12px;
+}
+
+/* Grid layout for operation cards */
+.operations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .operations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .operation-card {
+        padding: 16px;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+}
+
+/* Button icon support */
+.btn::after {
+    content: '›';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.btn:hover::after {
+    opacity: 1;
+    right: 12px;
+}
+
+/* Animation effects */
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.operation-card {
+    animation: cardEnter 0.3s ease-out;
+}
+
+.recommendation-card {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recommendation-priority {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 1rem;
+}
+
+.priority-high {
+    background-color: #dc3545;
+    color: white;
+}
+
+.priority-medium {
+    background-color: #ffc107;
+    color: black;
+}
+
+.priority-low {
+    background-color: #28a745;
+    color: white;
+}
