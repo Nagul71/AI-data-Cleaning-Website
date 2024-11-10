@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Cleaning</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/styles1.css">
 </head>
 <body>
     <nav class="navbar">
-        <a href="{{ url_for('index') }}">Home</a>
+        <a href="../index.html">Home</a>
         <a href="#" id="dataPreview">Data Cleaning</a>
-        <a href="{{ url_for('visualization_page', filename=filename) }}">Visualizations</a>
+        <a href="../templates/visualization_page.html">Visualizations</a>
     </nav>
     <!-- Replace the existing smart-clean-card div with this -->
     {% with messages = get_flashed_messages(with_categories=true) %}
