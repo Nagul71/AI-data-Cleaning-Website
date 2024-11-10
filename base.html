@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dataset Cleaning Platform{% endblock %}</title>
-    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="./static/styles.css">
 </head>
 <body>
     <nav class="navbar">
-        <a href="../index.html">Home</a>
+        <a href="./index.html">Home</a>
         <a href="#" id="dataPreviewLink" style="display: none;">Data Preview</a>
         {% if filename %}
-            <a href="../templates/data_cleaning.html">Data Cleaning</a>
-            <a href="../templates/visualization_page.html">Visualizations</a>
+            <a href="./data_cleaning.html">Data Cleaning</a>
+            <a href="./visualization_page.html">Visualizations</a>
         {% else %}
             <a href="#" class="disabled">Data Cleaning</a>
             <a href="#" class="disabled">Visualizations</a>
