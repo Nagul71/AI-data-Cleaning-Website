@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dataset Cleaning Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="#" id="dataPreviewLink" style="display: none;">Data Preview</a>
+        {% if filename %}
+            <a href="{{ url_for('data_cleaning', filename=filename) }}">Data Cleaning</a>
+            <a href="{{ url_for('visualization_page', filename=filename) }}">Visualizations</a>
+        {% else %}
+            <a href="#" class="disabled">Data Cleaning</a>
+            <a href="#" class="disabled">Visualizations</a>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>
